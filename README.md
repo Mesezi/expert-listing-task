@@ -1,3 +1,26 @@
+# Country Search
+
+A country autocomplete built with Next.js 16 (App Router), TanStack Query, Axios, and Tailwind CSS v4. Start typing a country name and get instant results with flags, capitals, and regions — powered by the free [countries.dev](https://countries.dev) API, no API key required.
+
+## Stack
+
+- **Next.js 16** — App Router, `next/image` for optimised flag rendering
+- **TanStack Query v5** — client-side fetching, per-query caching, and deduplication
+- **Axios** — HTTP client with typed responses and consistent error handling
+- **Tailwind CSS v4** — utility-first styling, no config file needed
+- **countries.dev** — free, keyless REST API for country data
+
+## Getting started
+
+```bash
+npm install
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) and start searching.
+
+---
+
 ### Tradeoffs
 
 I built the country search as a client-side autocomplete since the results depend on what the user types. I used **Axios** to make the API requests because it makes it straightforward to work with the API response and handle errors.
