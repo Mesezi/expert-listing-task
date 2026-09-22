@@ -7,29 +7,37 @@ export default function Page() {
   const [selected, setSelected] = useState<Country | null>(null);
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center gap-6 bg-[#16231c] px-6">
-      <h1 className="font-serif text-[#f6f4ec] text-2xl m-0">
-        Find a country
-      </h1>
-    
+    <main className="min-h-screen flex flex-col items-center justify-center gap-8 bg-neutral-950 px-6">
+      <div className="text-center space-y-1">
+        <h1 className="text-white text-2xl font-semibold tracking-tight">
+          Find a country
+        </h1>
+        <p className="text-white/40 text-sm">
+          Search by name to explore country details
+        </p>
+      </div>
+
       <CountryTypeahead onSelect={setSelected} />
 
       {selected && (
-        <div className="flex items-center gap-3 text-[#c9c4b4] text-sm">
-          <span className="w-8 h-6 rounded-sm overflow-hidden shrink-0">
+        <div className="flex items-center gap-4 bg-white/5 border border-white/10 rounded-xl px-4 py-3 w-full max-w-md">
+          <span className="w-10 h-7 rounded overflow-hidden shrink-0 shadow-sm">
             <Image
               src={selected.flags.png}
               alt={`Flag of ${selected.name}`}
-              width={32}
-              height={24}
+              width={40}
+              height={28}
               className="object-cover w-full h-full"
             />
           </span>
-          <span>
-            <span className="text-[#f6f4ec] font-medium">{selected.name}</span>
-            {" — capital "}
-            {selected.capital ?? "n/a"}
-          </span>
+          <div className="flex flex-col min-w-0">
+            <span className="text-white text-sm font-medium truncate">
+              {selected.name}
+            </span>
+            <span className="text-white/40 text-xs mt-0.5">
+              {selected.capital ?? "No capital"} · {selected.region}
+            </span>
+          </div>
         </div>
       )}
     </main>

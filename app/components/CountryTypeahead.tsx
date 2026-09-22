@@ -109,16 +109,16 @@ export default function CountryTypeahead({
       className="relative w-full max-w-md font-sans"
     >
       {/* Input field */}
-      <div className="flex items-center gap-2.5 bg-[#eceae1] border border-[#c9c4b4] rounded px-3.5 py-3 focus-within:border-[#16231c] focus-within:ring-2 focus-within:ring-[#b8933e]/35 transition-shadow">
-        {/* Compass icon */}
+      <div className="flex items-center gap-3 bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus-within:border-white/30 focus-within:bg-white/8 transition-all duration-200 backdrop-blur-sm">
+        {/* Search icon */}
         <svg
-          className="w-4 h-4 text-[#8a8571] shrink-0"
+          className="w-4 h-4 text-white/40 shrink-0"
           viewBox="0 0 24 24"
           fill="none"
           aria-hidden="true"
         >
-          <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.3" />
-          <path d="M12 12 L15.2 8.8 L13.4 13.4 L8.8 15.2 Z" fill="currentColor" />
+          <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.5" />
+          <path d="M16.5 16.5 L21 21" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
         </svg>
 
         <input
@@ -129,7 +129,7 @@ export default function CountryTypeahead({
           aria-activedescendant={
             activeIndex >= 0 ? `${listboxId}-opt-${activeIndex}` : undefined
           }
-          className="flex-1 bg-transparent border-none outline-none text-[15px] text-[#16231c] placeholder:text-[#8a8571]"
+          className="flex-1 bg-transparent border-none outline-none text-sm text-white placeholder:text-white/30"
           type="text"
           value={query}
           placeholder={placeholder}
@@ -142,7 +142,7 @@ export default function CountryTypeahead({
         {isLoading && (
           <span
             aria-hidden="true"
-            className="w-3.5 h-3.5 rounded-full border-2 border-[#c9c4b4] border-t-[#b8933e] animate-spin shrink-0"
+            className="w-4 h-4 rounded-full border-2 border-white/10 border-t-white/60 animate-spin shrink-0"
           />
         )}
       </div>
@@ -152,15 +152,15 @@ export default function CountryTypeahead({
         <ul
           id={listboxId}
           role="listbox"
-          className="absolute top-[calc(100%+6px)] left-0 right-0 m-0 py-1 list-none bg-[#f6f4ec] border border-[#c9c4b4] rounded shadow-[0_8px_20px_rgba(22,35,28,0.14)] max-h-80 overflow-y-auto z-30"
+          className="absolute top-[calc(100%+8px)] left-0 right-0 m-0 p-1.5 list-none bg-neutral-900 border border-white/10 rounded-xl shadow-2xl shadow-black/40 max-h-80 overflow-y-auto z-30 backdrop-blur-md"
         >
           {isError && (
-            <li className="px-4 py-3.5 text-[13.5px] text-[#6b7062]" role="status">
+            <li className="px-3 py-3 text-sm text-white/40" role="status">
               Couldn&apos;t reach the atlas. Check your connection and try again.
             </li>
           )}
           {isEmpty && (
-            <li className="px-4 py-3.5 text-[13.5px] text-[#6b7062]" role="status">
+            <li className="px-3 py-3 text-sm text-white/40" role="status">
               No country matches &ldquo;{query}&rdquo;.
             </li>
           )}
@@ -170,32 +170,37 @@ export default function CountryTypeahead({
               id={`${listboxId}-opt-${i}`}
               role="option"
               aria-selected={i === activeIndex}
-              className={`flex items-center gap-3 px-4 py-2.5 cursor-pointer border-b border-[#e3e0d3] last:border-b-0 transition-colors ${
-                i === activeIndex ? "bg-[#e9e5d6]" : "hover:bg-[#e9e5d6]"
+              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-colors duration-100 ${
+                i === activeIndex ? "bg-white/10" : "hover:bg-white/6"
               }`}
               onMouseEnter={() => setActiveIndex(i)}
               onMouseDown={(e) => e.preventDefault()}
               onClick={() => handleSelect(c)}
             >
               {/* Flag image */}
-              <span className="w-8 h-6 shrink-0 rounded-sm overflow-hidden flex items-center">
+              <span className="w-9 h-6 shrink-0 rounded overflow-hidden shadow-sm">
                 <Image
                   src={c.flags.png}
                   alt={`Flag of ${c.name}`}
-                  width={32}
+                  width={36}
                   height={24}
                   className="object-cover w-full h-full"
                 />
               </span>
 
-              {/* Name + meta */}
-              <span className="flex flex-col min-w-0">
-                <span className="font-serif text-[15.5px] text-[#16231c] truncate">
+              {/* Name + capital */}
+              <span className="flex flex-col min-w-0 flex-1">
+                <span className="text-sm font-medium text-white truncate leading-tight">
                   {c.name}
                 </span>
-                <span className="text-xs text-[#6b7062] mt-px">
-                  {c.capital ?? "No capital listed"} · {c.region}
+                <span className="text-xs text-white/40 mt-0.5 truncate">
+                  {c.capital ?? "No capital listed"}
                 </span>
+              </span>
+
+              {/* Region badge */}
+              <span className="text-[10px] font-medium text-white/40 bg-white/8 border border-white/10 rounded-full px-2 py-0.5 shrink-0 uppercase tracking-wide">
+                {c.region}
               </span>
             </li>
           ))}
